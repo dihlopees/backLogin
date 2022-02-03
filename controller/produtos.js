@@ -27,5 +27,9 @@ controller.listar = async() => {
     }
 };
 
+controller.deletar = async() => {
+    
+}
+
 
 module.exports = controller;

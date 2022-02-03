@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+var cors = require("cors");
 
 const produtos = require("./rotas/produtos");
 //const cor = require("./rotas/cor");
@@ -8,6 +9,7 @@ const produtos = require("./rotas/produtos");
 const {sequelize} = require("./bd");
 
 app.use(express.json());
+app.use(cors());
 
 
 app.get('/', (req, res) => {
@@ -16,6 +18,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/produtos', produtos);
+app.options("/", cors());
 
 app.listen(3001, () => {
     console.log("APLICAÇÃO INICIADA");

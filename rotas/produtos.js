@@ -39,8 +39,8 @@ router.put("/:id", (req, res) => {
 });
 
 //deletar 
-router.delete("/:id", (req, res) => {
-    let id = req.params.id;
-    res.send("rota para deletar recursos" + id);
+router.delete("/:id", async (req, res) => {
+    
+    
 })
 module.exports = router;
