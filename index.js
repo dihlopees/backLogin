@@ -3,7 +3,7 @@ const app = express();
 var cors = require("cors");
 
 const produtos = require("./rotas/produtos");
-//const cor = require("./rotas/cor");
+const cor = require("./rotas/cor");
 
 
 const {sequelize} = require("./bd");
@@ -18,6 +18,9 @@ app.get('/', (req, res) => {
 
 
 app.use('/produtos', produtos);
+app.use('/cor', cor);
+
+
 app.options("/", cors());
 
 app.listen(3001, () => {
