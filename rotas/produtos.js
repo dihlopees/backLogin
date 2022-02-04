@@ -1,15 +1,24 @@
 const {Router} = require("express");
-const {criar, listar} = require("../controller/produtos");
+const {criar, listar, remover, buscarPorId, atualizar} = require("../controller/produtos");
 const router = Router();
 
 //get devolve uma lista ou objetos
 //router serve para criar rotas http
 //utilizar get para mostrar os produtos no front, ele retorna uma lista de produtos
 // peço algo pelo get e ele me devolve {} [] ...
-router.get("/", async (req, res) => {
+router.get("/:id?", async (req, res) => {
     try {
-        const produtos = await listar();
-        res.send(produtos)
+
+        const{id} = req.params;
+        let resposta;
+
+        if (id){
+            resposta= await buscarPorId(id);
+        }else {
+            resposta = await listar();
+        }
+
+        res.send(resposta);
 
     } catch (erro) {
         console.log(erro);
@@ -33,14 +42,36 @@ router.post("/", async (req, res) => {
 });
 
 //ATUALIZAR O RECURSO EXISTENTE
-router.put("/:id", (req, res) => {
-    let id = req.params.id;
-    res.send("rota para atualizar recursos existsnte" + id);
+router.put("/:id", async (req, res) => {
+    try {
+        let id = req.params.id;
+        let dados = req.body;
+
+        await atualizar(id, dados);
+        const resultado = await buscarPorId(id);
+
+        res.send(resultado);
+    }catch (erro) {
+        console.log(erro);
+        res.status(500).send({erro});
+    }
 });
+
+//await atualizar(nome, marca, valor,corId, imagem, data)
 
 //deletar 
 router.delete("/:id", async (req, res) => {
+    try {
+        await remover(req.params.id);
+
+        res.send();
+    }catch (erro) {
+        console.log(erro);
+        res.status(500).send({erro});
+    }
     
     
-})
+});
+
+
 module.exports = router;
