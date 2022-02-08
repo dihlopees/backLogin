@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataType) => {
+    module.exports = (sequelize, DataType) => {
     const Produtos = sequelize.define("produtos", {
         id: {
 
@@ -34,12 +34,12 @@ module.exports = (sequelize, DataType) => {
         },
         imagem:{
             type: DataType.TEXT,
-            allowNull: false,
+            allowNull: true,
            
         },
-        data:{
+        datac:{
             type: DataType.DATE,
-            allowNull: false,
+            allowNull: true,
            
         }
     },

@@ -8,18 +8,19 @@ const router = Router();
 // peço algo pelo get e ele me devolve {} [] ...
 router.get("/:id?", async (req, res) => {
     try {
-
+        
         const{id} = req.params;
         let resposta;
 
+         console.log("ESSE QUE QUEREMOS VERRRRRRRR: " , id)
         if (id){
             resposta= await buscarPorId(id);
         }else {
             resposta = await listar();
         }
-
+        
         res.send(resposta);
-
+        
     } catch (erro) {
         console.log(erro);
         res.status(500).send({erro});
@@ -29,16 +30,15 @@ router.get("/:id?", async (req, res) => {
 //criar um obejto, se cria um novo recurso usamos POST
 
 router.post("/", async (req, res) => {
-   try {
-       const {nome, marca, valor, imagem, data , corId} = req.body;
-
-       const produtoCriado = await criar(nome, marca, valor, imagem, data, corId);
-
-       res.send(produtoCriado);
-   } catch (erro) {
-       console.log(erro)
-       res.status(500).send({erro});
-   }
+    try {
+        const {nome, marca, valor, imagem, datac, corId} = req.body;
+        const produtoCriado = await criar(nome, marca, valor, imagem, datac, corId);
+        
+        res.send(produtoCriado);
+    } catch (erro) {
+        console.log(erro)
+        res.status(500).send({erro});
+    }
 });
 
 //ATUALIZAR O RECURSO EXISTENTE
@@ -46,10 +46,10 @@ router.put("/:id", async (req, res) => {
     try {
         let id = req.params.id;
         let dados = req.body;
-
+        
         await atualizar(id, dados);
         const resultado = await buscarPorId(id);
-
+        
         res.send(resultado);
     }catch (erro) {
         console.log(erro);
@@ -63,7 +63,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try {
         await remover(req.params.id);
-
+        
         res.send();
     }catch (erro) {
         console.log(erro);

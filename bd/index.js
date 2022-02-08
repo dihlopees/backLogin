@@ -23,7 +23,7 @@ const Produtos = initProdutos(sequelize, DataTypes);
 const Cor = initCor(sequelize, DataTypes);
 
 
-//Cor.hasMany(Produtos, {as:"produtos", foreingKey:"corId"});
+Cor.hasMany(Produtos, {as:"produtos", foreingKey:"corId"});
 Produtos.belongsTo(Cor, {as:"cor", foreingKey:"corId"});
 
 

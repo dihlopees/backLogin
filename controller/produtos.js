@@ -2,14 +2,14 @@ const {Produtos} = require("../bd");
 
 let controller = {};
 
-controller.criar = async (nome, marca, valor, imagem, data, corId) => {
+controller.criar = async (nome, marca, valor, datac, imagem, corId) => { //nao esquecer de por imagem dnv
     try {
         return await Produtos.create({
             nome,
             marca,
             valor,
             imagem,
-            data,
+            datac,
             corId,
 
         });
@@ -20,13 +20,17 @@ controller.criar = async (nome, marca, valor, imagem, data, corId) => {
 
 controller.buscarPorId = async (id) =>{
     try {
-        return await Produtos.findByPk(id);
+        return await Produtos.findByPk(id,  { include:
+            {
+            association:"cor" , atribute:[ "nome" ]}
+        });
+        
     }catch (erro) {
         throw erro;
     };
 };
 
-controller.atualizar = async (id, {nome, marca, valor,corId, imagem, data}) => {
+controller.atualizar = async (id, {nome, marca, valor,corId, imagem, datac}) => {
     try {
         return await Produtos.update(
             {
@@ -35,7 +39,7 @@ controller.atualizar = async (id, {nome, marca, valor,corId, imagem, data}) => {
                 valor,
                 corId,
                 imagem,
-                data,
+                datac,
             },
             {
                 where: {
@@ -50,7 +54,12 @@ controller.atualizar = async (id, {nome, marca, valor,corId, imagem, data}) => {
 
 controller.listar = async() => {
     try {
-        return await Produtos.findAll();
+        return await Produtos.findAll(
+             { include:
+                 {
+                 association:"cor" , atribute:[ "nome" ]}
+             });
+        
 
     } catch(erro) {
         throw erro;
