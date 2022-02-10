@@ -27,4 +27,5 @@ Cor.hasMany(Produtos, {as:"produtos", foreingKey:"corId"});
 Produtos.belongsTo(Cor, {as:"cor", foreingKey:"corId"});
 
 
+
 module.exports = {sequelize, Sequelize, Produtos, Cor};

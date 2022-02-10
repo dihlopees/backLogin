@@ -20,9 +20,10 @@ controller.criar = async (nome, marca, valor, datac, imagem, corId) => { //nao e
 
 controller.buscarPorId = async (id) =>{
     try {
-        return await Produtos.findByPk(id,  { include:
+        return await Produtos.findByPk(id,
+              { include:
             {
-            association:"cor" , atribute:[ "nome" ]}
+                association:"cor" , atribute:[ "nome" ]}
         });
         
     }catch (erro) {
