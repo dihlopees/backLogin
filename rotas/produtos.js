@@ -10,9 +10,10 @@ router.get("/:id?", async (req, res) => {
     try {
         
         const{id} = req.params;
+        console.log(req);
         let resposta;
 
-         console.log("ESSE QUE QUEREMOS VERRRRRRRR: " , id)
+         
         if (id){
             resposta= await buscarPorId(id);
         }else {
@@ -31,8 +32,8 @@ router.get("/:id?", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const {nome, marca, valor, imagem, datac, corId} = req.body;
-        const produtoCriado = await criar(nome, marca, valor, imagem, datac, corId);
+        const {nome, marca, valor, imagem, data, corid} = req.body;
+        const produtoCriado = await criar(nome, marca, valor, imagem, data, corid);
         
         res.send(produtoCriado);
     } catch (erro) {
@@ -57,7 +58,7 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-//await atualizar(nome, marca, valor,corId, imagem, data)
+//await atualizar(nome, marca, valor,corid, imagem, data)
 
 //deletar 
 router.delete("/:id", async (req, res) => {

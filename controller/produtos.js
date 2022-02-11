@@ -2,15 +2,15 @@ const {Produtos} = require("../bd");
 
 let controller = {};
 
-controller.criar = async (nome, marca, valor, datac, imagem, corId) => { //nao esquecer de por imagem dnv
+controller.criar = async (nome, marca, valor, data, imagem, corid) => { //nao esquecer de por imagem dnv
     try {
         return await Produtos.create({
             nome,
             marca,
             valor,
             imagem,
-            datac,
-            corId,
+            data,
+            corid,
 
         });
     }catch (erro) {
@@ -31,16 +31,16 @@ controller.buscarPorId = async (id) =>{
     };
 };
 
-controller.atualizar = async (id, {nome, marca, valor,corId, imagem, datac}) => {
+controller.atualizar = async (id, {nome, marca, valor, corid, imagem, data}) => {
     try {
         return await Produtos.update(
             {
                 nome,
                 marca,
                 valor,
-                corId,
+                corid,
                 imagem,
-                datac,
+                data,
             },
             {
                 where: {
@@ -56,10 +56,11 @@ controller.atualizar = async (id, {nome, marca, valor,corId, imagem, datac}) => 
 controller.listar = async() => {
     try {
         return await Produtos.findAll(
-             { include:
-                 {
-                 association:"cor" , atribute:[ "nome" ]}
-             });
+            { include:
+            {
+                association:"cor" , atribute:[ "nome" ]}
+        });
+            
         
 
     } catch(erro) {

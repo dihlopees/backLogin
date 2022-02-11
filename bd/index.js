@@ -8,7 +8,7 @@ const options = {
     password:"ingrid1",
     host:"localhost", // se tivesse rodando um banco seria uma url
     dialect:"postgres",
-    database:"estagio",
+    database:"projeto",
 
 };
 
@@ -23,8 +23,9 @@ const Produtos = initProdutos(sequelize, DataTypes);
 const Cor = initCor(sequelize, DataTypes);
 
 
-Cor.hasMany(Produtos, {as:"produtos", foreingKey:"corId"});
-Produtos.belongsTo(Cor, {as:"cor", foreingKey:"corId"});
+
+Produtos.belongsTo(Cor, {as:"cor", foreignKey:"corid"});
+
 
 
 
