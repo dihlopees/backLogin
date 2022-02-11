@@ -2,7 +2,7 @@ const {Produtos} = require("../bd");
 
 let controller = {};
 
-controller.criar = async (nome, marca, valor, data, imagem, corid) => { //nao esquecer de por imagem dnv
+controller.criar = async (nome, marca, valor, imagem, data, corid) => { //nao esquecer de por imagem dnv
     try {
         return await Produtos.create({
             nome,
