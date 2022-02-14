@@ -17,7 +17,7 @@ module.exports = (sequelize, DataType) => {
         allowNull: false,
       },
       valor: {
-        type: DataType.NUMBER,
+        type: DataType.NUMERIC,
         allowNull: false,
       },
       corid: {
