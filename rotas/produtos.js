@@ -76,30 +76,30 @@ router.delete("/:id", async (req, res) => {
 });
 
 
-// router.post("/upload", async (req, res) => {
-//     try {
-//       const { arquivo } = req.files;
+router.post("/upload", async (req, res) => {
+    try {
+      const { arquivo } = req.files;
   
-//       let diretorio = path.join(__dirname, "../public");
+      let diretorio = path.join(__dirname, "../public");
   
-//       let nomeArquivo = arquivo.md5;
-//       let extensao = arquivo.mimetype.split("/")[1];
+      let nomeArquivo = arquivo.md5;
+      let extensao = arquivo.mimetype.split("/")[1];
   
-//       arquivo.mv(`${diretorio}/${nomeArquivo}.${extensao}`, (erro) => {
-//         if (erro) {
-//           throw erro;
-//         }
+      arquivo.mv(`${diretorio}/${nomeArquivo}.${extensao}`, (erro) => {
+        if (erro) {
+          throw erro;
+        }
   
-//         res.json({
-//           arquivo: `public/${nomeArquivo}.${extensao}`,
-//           nomeArquivo: arquivo.name,
-//         });
-//       });
-//     } catch (erro) {
-//       console.log(erro);
-//       res.status(500).send({ erro });
-//     }
-//   });
+        res.json({
+          arquivo: `public/${nomeArquivo}.${extensao}`,
+          nomeArquivo: arquivo.name,
+        });
+      });
+    } catch (erro) {
+      console.log(erro);
+      res.status(500).send({ erro });
+    }
+  });
 
 
 
