@@ -3,11 +3,14 @@ const app = express();
 const fileupload = require("express-fileupload");
 var cors = require("cors");
 
-const produtos = require("./rotas/produtos");
-const cor = require("./rotas/cor");
-
 
 const {sequelize} = require("./bd");
+const produtos = require("./rotas/produtos");
+const cor = require("./rotas/cor");
+const usuario = require("./rotas/usuario");
+
+
+
 app.use("/public" , express.static('public'));
 app.use(express.json());
 app.use(cors());
@@ -20,6 +23,7 @@ app.get('/', (req, res) => {
 
 app.use('/produtos', produtos);
 app.use('/cor', cor);
+app.use('/usuario', usuario);
 
 
 app.options("/", cors());

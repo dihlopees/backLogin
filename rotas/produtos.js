@@ -7,6 +7,11 @@ const router = Router();
 //router serve para criar rotas http
 //utilizar get para mostrar os produtos no front, ele retorna uma lista de produtos
 // peço algo pelo get e ele me devolve {} [] ...
+
+
+
+
+
 router.get("/:id?", async (req, res) => {
     try {
         
