@@ -2,7 +2,7 @@ const {Router} = require("express");
 const { listar} = require("../controller/usuario");
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         let dados = req.body;
 
