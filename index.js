@@ -8,8 +8,9 @@ const {sequelize} = require("./bd");
 const produtos = require("./rotas/produtos");
 const cor = require("./rotas/cor");
 const usuario = require("./rotas/usuario");
+const tokenVerify = require("./middleware/tokenVerify");
 
-
+app.options("/", cors());
 
 app.use("/public" , express.static('public'));
 app.use(express.json());
@@ -20,13 +21,14 @@ app.get('/', (req, res) => {
     res.send({mensagem: "bem vindo"});
 });
 
-
+app.use('/usuario', usuario);
+app.use(tokenVerify);
 app.use('/produtos', produtos);
 app.use('/cor', cor);
-app.use('/usuario', usuario);
 
 
-app.options("/", cors());
+
+
 
 app.listen(3001, () => {
     console.log("APLICAÇÃO INICIADA");

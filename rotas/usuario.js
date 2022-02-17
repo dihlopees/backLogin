@@ -1,16 +1,34 @@
 const {Router} = require("express");
-const { listar} = require("../controller/usuario");
+const { listar, login} = require("../controller/usuario");
 const router = Router();
 
-router.post("/", async (req, res) => {
+// router.post("/", async (req, res) => {
+//     try {
+//         let dados = req.body;
+
+//        const usuario =  await listar(dados);
+
+//         res.send(usuario);
+
+//     } catch (erro) {
+//         console.log(erro);
+//         res.status(500).send({erro});
+//     }
+// });
+
+router.post("/", async (req,res) => {
     try {
-        let dados = req.body;
+        const {email, senha} = req.body;
+        const token = await login(email, senha);
 
-       const usuario =  await listar(dados);
+        if(token) {
+            res.send({token});
+        }else {
+            res.status(401).send({erro: "Login ou Senha Inválidos"});
 
-        res.send(usuario);
+        }
 
-    } catch (erro) {
+    }catch (erro) {
         console.log(erro);
         res.status(500).send({erro});
     }
