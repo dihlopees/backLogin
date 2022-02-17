@@ -1,4 +1,3 @@
-const req = require("express/lib/request");
 const { Usuario } = require("../bd");
 
 let controller = {};
@@ -15,5 +14,6 @@ controller.listar = async ({email, senha}) => {
     throw erro;
   }
 };
+
 
 module.exports = controller;
