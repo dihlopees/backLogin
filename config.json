@@ -1,3 +1,10 @@
 {
-    "palavraChave": "@estagioVip22"
+    "palavraChave": "@estagioVip22",
+    "saltos": 10,
+    "email": {
+        "usuario": "viptecapi@gmail.com",
+        "senha": "@bootcamp2022",
+        "host": "smtp.gmail.com",
+        "porta": 465
+      }
 }

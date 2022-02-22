@@ -1,5 +1,5 @@
 const {Router} = require("express");
-const { listar, login} = require("../controller/usuario");
+const { login, criar, buscarPorEmail} = require("../controller/usuario");
 const router = Router();
 
 // router.post("/", async (req, res) => {
@@ -33,5 +33,44 @@ router.post("/", async (req,res) => {
         res.status(500).send({erro});
     }
 });
+
+router.post("/criar", async (req, res) => {
+    try {
+      const { email, senha } = req.body;
+  
+      const usuarioCriado = await criar( email, senha);
+  
+      res.send(usuarioCriado);
+    } catch (erro) {
+      res.status(500).send({ erro });
+    }
+  });
+
+
+  router.post("/esqueci", async (req, res)=> {
+    try {
+        const {email} = req.body;
+
+        const usuario = await buscarPorEmail(email);
+        
+
+        if (usuario.id) {
+
+
+        }
+
+        
+        console.log(usuario);
+
+        res.send({email});
+
+
+    }catch (erro) {
+        res.status(500).send({erro})
+        console.log(erro);
+    }
+  });
+
+
 
 module.exports = router;
