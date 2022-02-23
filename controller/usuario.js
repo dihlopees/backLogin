@@ -42,13 +42,32 @@ controller.login = async (email, senha) => {
   }
 };
 
-controller.criar = async (nome, email, senha) => {
+controller.criar = async ( email, senha) => {
   try {
     return await Usuario.create({
-      nome,
+      
       email,
       senha,
     });
+  } catch (erro) {
+    throw erro;
+  }
+};
+
+controller.atualizar = async (id, { email, senha }) => {
+  try {
+    return await Usuario.update(
+      {
+        
+        email,
+        senha,
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
   } catch (erro) {
     throw erro;
   }

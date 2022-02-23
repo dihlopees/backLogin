@@ -1,6 +1,7 @@
-const {Router} = require("express");
-const { login, criar, buscarPorEmail} = require("../controller/usuario");
+const { Router } = require("express");
+const { login, criar, buscarPorEmail, atualizar } = require("../controller/usuario");
 const router = Router();
+const { send} = require("../controller/mail");
 
 // router.post("/", async (req, res) => {
 //     try {
@@ -16,61 +17,65 @@ const router = Router();
 //     }
 // });
 
-router.post("/", async (req,res) => {
-    try {
-        const {email, senha} = req.body;
-        const token = await login(email, senha);
+router.post("/", async (req, res) => {
+  try {
+    const { email, senha } = req.body;
+    const token = await login(email, senha);
 
-        if(token) {
-            res.send({token});
-        }else {
-            res.status(401).send({erro: "Login ou Senha Inválidos"});
-
-        }
-
-    }catch (erro) {
-        console.log(erro);
-        res.status(500).send({erro});
+    if (token) {
+      res.send({ token });
+    } else {
+      res.status(401).send({ erro: "Login ou Senha Inválidos" });
     }
+  } catch (erro) {
+    console.log(erro);
+    res.status(500).send({ erro });
+  }
 });
 
 router.post("/criar", async (req, res) => {
-    try {
-      const { email, senha } = req.body;
-  
-      const usuarioCriado = await criar( email, senha);
-  
-      res.send(usuarioCriado);
-    } catch (erro) {
-      res.status(500).send({ erro });
-    }
-  });
+  try {
+    const { email, senha } = req.body;
 
+    const usuarioCriado = await criar(email, senha);
 
-  router.post("/esqueci", async (req, res)=> {
-    try {
-        const {email} = req.body;
+    res.send(usuarioCriado);
+  } catch (erro) {
+    res.status(500).send({ erro });
+  }
+});
 
-        const usuario = await buscarPorEmail(email);
-        
+router.post("/esqueci", async (req, res) => {
+  try {
+    const { email } = req.body;
 
-        if (usuario.id) {
+    const usuario = await buscarPorEmail(email);
 
+    if (usuario) {
+      const novaSenha = (Math.random() + 1).toString(36).substring(7);
 
-        }
+      console.log(novaSenha);
 
-        
-        console.log(usuario);
+      await atualizar(usuario.id, { senha: novaSenha });
 
-        res.send({email});
+      const from = '"Api da viptech" <viptecapi@gmail.com>';
+      const subject = "Recuperação de Senha";
+      const html = `
+      <p>Olá</p>
+      <p>Sua senha temporaria é: <strong>${novaSenha}</strong></p>
+      
+      <p>Viptech Api</p>`;
 
+      await send(from, email, subject, html);
+      res.send({ sucesso: `A senha foi enviada para o email ${email}` });
+    
+  }
 
-    }catch (erro) {
-        res.status(500).send({erro})
-        console.log(erro);
-    }
-  });
-
-
+    // res.status(400).send({ erro: "Email informado invalido" });
+  } catch (erro) {
+    res.status(500).send({ erro });
+    console.log(erro);
+  }
+});
 
 module.exports = router;
