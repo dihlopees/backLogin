@@ -70,9 +70,10 @@ router.post("/esqueci", async (req, res) => {
       await send(from, email, subject, html);
       res.send({ sucesso: `A senha foi enviada para o email ${email}` });
     
-  }
+  } else {
 
-    // res.status(400).send({ erro: "Email informado invalido" });
+    res.status(400).send({ erro: "Email informado invalido" });}
+    
   } catch (erro) {
     res.status(500).send({ erro });
     console.log(erro);
