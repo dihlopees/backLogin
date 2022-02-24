@@ -58,13 +58,14 @@ router.post("/esqueci", async (req, res) => {
 
       await atualizar(usuario.id, { senha: novaSenha });
 
-      const from = '"Api da viptech" <viptecapi@gmail.com>';
-      const subject = "Recuperação de Senha";
+      const from = '"DESAFIO BOOTCAMP" <viptecapi@gmail.com>';
+      const subject = "Recuperação de Senha Solicitada";
       const html = `
-      <p>Olá</p>
-      <p>Sua senha temporaria é: <strong>${novaSenha}</strong></p>
+      <p>Olá ${email}, </p>
+
+      <p>A gente gerou uma senha temporaria para você, agora é só logar novamente :) Senha:   <strong>${novaSenha}</strong></p>
       
-      <p>Viptech Api</p>`;
+      <p>Viptech Desenvolvimento de Sistemas</p>`;
 
       await send(from, email, subject, html);
       res.send({ sucesso: `A senha foi enviada para o email ${email}` });
