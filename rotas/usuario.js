@@ -1,21 +1,12 @@
 const { Router } = require("express");
-const { login, criar, buscarPorEmail, atualizar } = require("../controller/usuario");
+const {
+  login,
+  criar,
+  buscarPorEmail,
+  atualizar,
+} = require("../controller/usuario");
 const router = Router();
-const { send} = require("../controller/mail");
-
-// router.post("/", async (req, res) => {
-//     try {
-//         let dados = req.body;
-
-//        const usuario =  await listar(dados);
-
-//         res.send(usuario);
-
-//     } catch (erro) {
-//         console.log(erro);
-//         res.status(500).send({erro});
-//     }
-// });
+const { send } = require("../controller/mail");
 
 router.post("/", async (req, res) => {
   try {
@@ -69,11 +60,9 @@ router.post("/esqueci", async (req, res) => {
 
       await send(from, email, subject, html);
       res.send({ sucesso: `A senha foi enviada para o email ${email}` });
-    
-  } else {
-
-    res.status(400).send({ erro: "Email informado invalido" });}
-    
+    } else {
+      res.status(400).send({ erro: "Email informado invalido" });
+    }
   } catch (erro) {
     res.status(500).send({ erro });
     console.log(erro);

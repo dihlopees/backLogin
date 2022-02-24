@@ -1,14 +1,13 @@
-const {Cor} = require("../bd");
+const { Cor } = require("../bd");
 
 let controller = {};
 
-controller.listar = async() => {
-    try {
-        return await Cor.findAll();
-
-    } catch(erro) {
-        throw erro;
-    }
+controller.listar = async () => {
+  try {
+    return await Cor.findAll();
+  } catch (erro) {
+    throw erro;
+  }
 };
 
 module.exports = controller;

@@ -40,7 +40,7 @@ module.exports = (sequelize, DataType) => {
     },
     {
       tableName: "produtos",
-      timestamps: false, //se for usar campos com tipo data tem que ser true
+      timestamps: false, 
     }
   );
   return Produtos;

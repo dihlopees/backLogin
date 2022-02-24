@@ -25,15 +25,6 @@ app.use(tokenVerify);
 app.use("/produtos", produtos);
 app.use("/cor", cor);
 
-// const { send } = require("./controller/mail");
-
-// send(
-//   "viptecapi@gmail.com",
-//   "ingridrieser.lopes@gmail.com",
-//   "teste de email",
-//   "<h1> meu email funcionou</h1>"
-// );
-
 app.listen(3001, () => {
   console.log("APLICAÇÃO INICIADA");
 });
